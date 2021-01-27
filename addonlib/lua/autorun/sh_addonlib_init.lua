@@ -12,10 +12,11 @@ addonlib.debug = function(text)
 end
 
 -- addonlib lets you add a file directory to include
--- it does not have inherience
 -- it uses 'cl_', 'sh_', and 'sv_' prefixes
 addonlib.includeFiles = function(dir)
-    for k, v in pairs(file.Find(dir .. "*", "LUA")) do
+    local files, folders = file.Find(dir .. "*", LUA)
+
+    for k, v in pairs(files) do
         if (string.StartWith(v, "sh_")) then
             if (SERVER) then
                 AddCSLuaFile(dir .. v)
@@ -40,6 +41,12 @@ addonlib.includeFiles = function(dir)
                 include(dir .. v)
                 addonlib.debug("Added client file " .. v)
             end
+        end
+    end
+
+    if (folders) then
+        for k, v in pairs(folders) do
+            addonlib.includeFiles(dir .. v .. "/")
         end
     end
 end
