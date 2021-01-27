@@ -30,8 +30,8 @@ addonlib.includeFiles = function(dir)
         if (string.StartWith(v, "sv_")) then
             if (SERVER) then
                 include(dir .. v)
-                addonlib.debug("Added server file " .. v)
             end
+            addonlib.debug("Added server file " .. v)
         end
         if (string.StartWith(v, "cl_")) then
             if (SERVER) then
@@ -39,8 +39,8 @@ addonlib.includeFiles = function(dir)
             end
             if (CLIENT) then
                 include(dir .. v)
-                addonlib.debug("Added client file " .. v)
             end
+            addonlib.debug("Added client file " .. v)
         end
     end
 
